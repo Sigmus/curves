@@ -1,4 +1,4 @@
 import curves from "./curves";
 import data from "./data.json";
 
-curves({ data, elementId: "meugraph" });
+curves({ data, el: document.getElementById("meugraph"), hueinit: 180 });
