@@ -1,29 +1,23 @@
 import p5 from "p5";
 import data from "./data.json";
 
-const allkeys = [];
-const allanos = [];
 const hueinit = 180;
 const huestep = 90;
 const transparency = 40;
 
-let allmax = 0;
-let contaanos = 0;
+const allanos = Object.keys(data);
 
-for (let turma in data) {
-  allanos[contaanos] = turma;
-  contaanos++;
+const allmax = allanos.reduce(
+  (acc, ano) => acc || Math.max(...Object.values(data[ano])),
+  0
+);
 
-  for (let ks in data[turma]) {
-    allkeys[ks] = ks;
-
-    if (data[turma][ks] > allmax) {
-      allmax = data[turma][ks];
-    }
-  }
-}
-
-// console.log(allkeys);
+const allkeys = allanos.reduce((acc, ano) => {
+  Object.keys(data[ano]).forEach((i) => {
+    acc[i] = i;
+  });
+  return acc;
+}, {});
 
 const sketch = (p) => {
   p.setup = () => {
