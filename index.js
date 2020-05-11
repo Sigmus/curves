@@ -21,13 +21,12 @@ const allkeys = allanos.reduce((acc, ano) => {
   return acc;
 }, {});
 
+const el = document.getElementById("meugraph");
+
 const sketch = (p) => {
   p.setup = () => {
     p.colorMode(p.HSB, 255, 100, 100, 100);
-    p.createCanvas(
-      document.getElementById("meugraph").clientWidth,
-      document.getElementById("meugraph").clientHeight
-    );
+    p.createCanvas(el.clientWidth, el.clientHeight);
     p.background(255, 0, 100, 100);
     p.rR = hueinit;
   };
@@ -78,12 +77,7 @@ const sketch = (p) => {
     }
 
     p.fill(255, 0, 100, 100);
-    p.rect(
-      document.getElementById("meugraph").clientWidth - 150,
-      -p.height,
-      150,
-      document.getElementById("meugraph").clientHeight
-    );
+    p.rect(el.clientWidth - 150, -p.height, 150, el.clientHeight);
 
     p.lastk = 0;
     for (let k = 0; k < totalanos; k++) {
@@ -106,11 +100,11 @@ const sketch = (p) => {
       if (data[allanos[p.lastk]][cat] * p.fator < -16) {
         p.text(
           cat,
-          document.getElementById("meugraph").clientWidth - 135,
+          el.clientWidth - 135,
           7 + data[allanos[p.lastk]][cat] * p.fator
         );
       } else {
-        p.text(cat, document.getElementById("meugraph").clientWidth - 135, -10);
+        p.text(cat, el.clientWidth - 135, -10);
       }
 
       p.noFill();
@@ -120,10 +114,7 @@ const sketch = (p) => {
   };
 
   p.windowResized = function () {
-    p.resizeCanvas(
-      document.getElementById("meugraph").clientWidth,
-      document.getElementById("meugraph").clientHeight
-    );
+    p.resizeCanvas(el.clientWidth, el.clientHeight);
   };
 };
 
