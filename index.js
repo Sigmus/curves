@@ -44,8 +44,7 @@ const sketch = (p) => {
     allkeys.forEach((kk) => {
       p.rR = p.rR + huestep;
       if (p.rR > 360) {
-        let dif = p.rR - 360;
-        p.rR = dif;
+        p.rR = p.rR - 360;
       }
 
       p.fill(p.rR, 100, 50, transparency);
