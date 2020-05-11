@@ -33,6 +33,10 @@ const sketch = (p) => {
     p.rR = hueinit;
   };
 
+  p.windowResized = () => {
+    p.resizeCanvas(el.clientWidth, el.clientHeight);
+  };
+
   p.draw = () => {
     p.background(255, 0, 100, 100);
     p.translate(0, p.height);
@@ -111,10 +115,6 @@ const sketch = (p) => {
     }
 
     p.noLoop();
-  };
-
-  p.windowResized = function () {
-    p.resizeCanvas(el.clientWidth, el.clientHeight);
   };
 };
 
