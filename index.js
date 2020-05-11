@@ -16,12 +16,7 @@ const allmax = allanos.reduce(
   0
 );
 
-const allkeys = allanos.reduce((acc, ano) => {
-  Object.keys(data[ano]).forEach((i) => {
-    acc[i] = i;
-  });
-  return acc;
-}, {});
+const allkeys = Object.keys(Object.values(data)[0]);
 
 const el = document.getElementById("meugraph");
 
@@ -46,7 +41,7 @@ const sketch = (p) => {
 
     p.noStroke();
 
-    Object.keys(allkeys).forEach((kk) => {
+    allkeys.forEach((kk) => {
       p.rR = p.rR + huestep;
       if (p.rR > 360) {
         let dif = p.rR - 360;
@@ -62,17 +57,17 @@ const sketch = (p) => {
       p.vertex(0, 150);
       p.vertex(0, 150);
 
-      p.vertex(0, data[allanos[0]][allkeys[kk]] * p.fator);
+      p.vertex(0, data[allanos[0]][kk] * p.fator);
 
-      p.curveVertex(0, data[allanos[0]][allkeys[kk]] * p.fator);
+      p.curveVertex(0, data[allanos[0]][kk] * p.fator);
 
       range(0, totalanos).map((ano) =>
-        p.curveVertex(ano * p.breaks, data[allanos[ano]][allkeys[kk]] * p.fator)
+        p.curveVertex(ano * p.breaks, data[allanos[ano]][kk] * p.fator)
       );
 
       p.curveVertex(
         totalanos * p.breaks,
-        data[allanos[totalanos - 1]][allkeys[kk]] * p.fator
+        data[allanos[totalanos - 1]][kk] * p.fator
       );
 
       p.vertex(totalanos * p.breaks, 150);
