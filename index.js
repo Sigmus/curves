@@ -1,15 +1,14 @@
 import p5 from "p5";
 import data from "./data.json";
 
-let allkeys = [];
-let allanos = [];
+const allkeys = [];
+const allanos = [];
+const hueinit = 180;
+const huestep = 90;
+const transparency = 40;
+
 let allmax = 0;
 let contaanos = 0;
-let hueinit = 180;
-let huestep = 90;
-let transparency = 40;
-
-console.table(data);
 
 for (let turma in data) {
   allanos[contaanos] = turma;
@@ -24,8 +23,10 @@ for (let turma in data) {
   }
 }
 
-let sketch = function (p) {
-  p.setup = function () {
+// console.log(allkeys);
+
+const sketch = (p) => {
+  p.setup = () => {
     p.colorMode(p.HSB, 255, 100, 100, 100);
     p.createCanvas(
       document.getElementById("meugraph").clientWidth,
@@ -35,12 +36,9 @@ let sketch = function (p) {
     p.rR = hueinit;
   };
 
-  p.draw = function () {
+  p.draw = () => {
     p.background(255, 0, 100, 100);
     p.translate(0, p.height);
-    //p.stroke(255);
-    //p.strokeWeight(0.5);
-    // p.line(0,0,p.width,0);
     p.fator = ((p.height - 40) / allmax) * -1;
 
     p.breaks = (p.width - 150) / (Object.keys(data).length - 1);
@@ -109,8 +107,6 @@ let sketch = function (p) {
       p.fill(255, 0, 50, 100);
       p.textSize(14);
 
-      console.log(cat + " " + data[allanos[p.lastk]][cat] * p.fator);
-
       if (data[allanos[p.lastk]][cat] * p.fator < -16) {
         p.text(
           cat,
@@ -135,4 +131,4 @@ let sketch = function (p) {
   };
 };
 
-let z = new p5(sketch, "meugraph");
+new p5(sketch, "meugraph");
