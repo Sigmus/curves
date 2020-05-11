@@ -77,8 +77,6 @@ const sketch = (p) => {
     p.fill(255, 0, 100, 100);
     p.rect(el.clientWidth - 150, -p.height, 150, el.clientHeight);
 
-    p.lastk = 0;
-
     range(0, totalanos).forEach((k) => {
       p.fill(255, 0, 70, 100);
       p.textSize(10);
@@ -88,23 +86,16 @@ const sketch = (p) => {
       p.strokeWeight(0.5);
       p.line(p.breaks * k, -p.height, p.breaks * k, -p.height + 100);
       p.noStroke();
-
-      p.lastk = k;
     });
 
-    Object.keys(data[allanos[p.lastk]]).forEach((cat) => {
+    allkeys.forEach((cat) => {
       p.fill(255, 0, 50, 100);
       p.textSize(14);
 
-      if (data[allanos[p.lastk]][cat] * p.fator < -16) {
-        p.text(
-          cat,
-          el.clientWidth - 135,
-          7 + data[allanos[p.lastk]][cat] * p.fator
-        );
-      } else {
-        p.text(cat, el.clientWidth - 135, -10);
-      }
+      const value = data[allanos[totalanos - 1]][cat];
+      value * p.fator < -16
+        ? p.text(cat, el.clientWidth - 135, 7 + value * p.fator)
+        : p.text(cat, el.clientWidth - 135, -10);
 
       p.noFill();
     });
