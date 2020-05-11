@@ -46,7 +46,7 @@ const sketch = (p) => {
 
     p.noStroke();
 
-    for (let kk in allkeys) {
+    Object.keys(allkeys).forEach((kk) => {
       p.rR = p.rR + huestep;
       if (p.rR > 360) {
         let dif = p.rR - 360;
@@ -77,7 +77,7 @@ const sketch = (p) => {
 
       p.vertex(totalanos * p.breaks, 150);
       p.endShape();
-    }
+    });
 
     p.fill(255, 0, 100, 100);
     p.rect(el.clientWidth - 150, -p.height, 150, el.clientHeight);
@@ -97,7 +97,7 @@ const sketch = (p) => {
       p.lastk = k;
     });
 
-    for (let cat in data[allanos[p.lastk]]) {
+    Object.keys(data[allanos[p.lastk]]).forEach((cat) => {
       p.fill(255, 0, 50, 100);
       p.textSize(14);
 
@@ -112,7 +112,7 @@ const sketch = (p) => {
       }
 
       p.noFill();
-    }
+    });
 
     p.noLoop();
   };
