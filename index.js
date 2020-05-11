@@ -7,6 +7,8 @@ const transparency = 40;
 
 const allanos = Object.keys(data);
 
+const totalanos = allanos.length;
+
 const allmax = allanos.reduce(
   (acc, ano) => acc || Math.max(...Object.values(data[ano])),
   0
@@ -35,7 +37,7 @@ const sketch = (p) => {
     p.translate(0, p.height);
     p.fator = ((p.height - 40) / allmax) * -1;
 
-    p.breaks = (p.width - 150) / (Object.keys(data).length - 1);
+    p.breaks = (p.width - 150) / (totalanos - 1);
 
     p.noStroke();
 
@@ -48,10 +50,10 @@ const sketch = (p) => {
 
       p.fill(p.rR, 100, 50, transparency);
       p.beginShape();
-      p.vertex(Object.keys(data).length * p.breaks, 0);
-      p.vertex(Object.keys(data).length * p.breaks, 0);
-      p.vertex(Object.keys(data).length * p.breaks, 150);
-      p.vertex(Object.keys(data).length * p.breaks, 150);
+      p.vertex(totalanos * p.breaks, 0);
+      p.vertex(totalanos * p.breaks, 0);
+      p.vertex(totalanos * p.breaks, 150);
+      p.vertex(totalanos * p.breaks, 150);
       p.vertex(0, 150);
       p.vertex(0, 150);
 
@@ -59,7 +61,7 @@ const sketch = (p) => {
 
       p.curveVertex(0, data[allanos[0]][allkeys[kk]] * p.fator);
 
-      for (let ano = 0; ano < Object.keys(data).length; ano++) {
+      for (let ano = 0; ano < totalanos; ano++) {
         p.curveVertex(
           ano * p.breaks,
           data[allanos[ano]][allkeys[kk]] * p.fator
@@ -67,11 +69,11 @@ const sketch = (p) => {
       }
 
       p.curveVertex(
-        Object.keys(data).length * p.breaks,
-        data[allanos[Object.keys(data).length - 1]][allkeys[kk]] * p.fator
+        totalanos * p.breaks,
+        data[allanos[totalanos - 1]][allkeys[kk]] * p.fator
       );
 
-      p.vertex(Object.keys(data).length * p.breaks, 150);
+      p.vertex(totalanos * p.breaks, 150);
       p.endShape();
     }
 
@@ -84,7 +86,7 @@ const sketch = (p) => {
     );
 
     p.lastk = 0;
-    for (let k = 0; k < Object.keys(data).length; k++) {
+    for (let k = 0; k < totalanos; k++) {
       p.fill(255, 0, 70, 100);
       p.textSize(10);
       p.text(allanos[k], p.breaks * k + 15, -p.height + 20);
