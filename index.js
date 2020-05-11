@@ -1,4 +1,6 @@
 import p5 from "p5";
+import range from "lodash/range";
+
 import data from "./data.json";
 
 const hueinit = 180;
@@ -60,12 +62,9 @@ const sketch = (p) => {
 
       p.curveVertex(0, data[allanos[0]][allkeys[kk]] * p.fator);
 
-      for (let ano = 0; ano < totalanos; ano++) {
-        p.curveVertex(
-          ano * p.breaks,
-          data[allanos[ano]][allkeys[kk]] * p.fator
-        );
-      }
+      range(0, totalanos).map((ano) =>
+        p.curveVertex(ano * p.breaks, data[allanos[ano]][allkeys[kk]] * p.fator)
+      );
 
       p.curveVertex(
         totalanos * p.breaks,
@@ -80,7 +79,8 @@ const sketch = (p) => {
     p.rect(el.clientWidth - 150, -p.height, 150, el.clientHeight);
 
     p.lastk = 0;
-    for (let k = 0; k < totalanos; k++) {
+
+    range(0, totalanos).forEach((k) => {
       p.fill(255, 0, 70, 100);
       p.textSize(10);
       p.text(allanos[k], p.breaks * k + 15, -p.height + 20);
@@ -91,7 +91,7 @@ const sketch = (p) => {
       p.noStroke();
 
       p.lastk = k;
-    }
+    });
 
     for (let cat in data[allanos[p.lastk]]) {
       p.fill(255, 0, 50, 100);
